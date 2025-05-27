@@ -163,6 +163,29 @@ const ReportPage = () => {
           <div className="mt-8 text-sm text-gray-500">
             <p>Report generated on: {new Date().toLocaleString()}</p>
           </div>
+
+          {/* Signature Section - Only visible when printing */}
+          <div className="signature-section print-only mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="signature-item">
+                <div className="signature-line border-b border-gray-400 mb-2 h-12"></div>
+                <p className="text-sm font-medium text-center">Prepared by</p>
+                <p className="text-xs text-center text-gray-600">Date: ___________</p>
+              </div>
+
+              <div className="signature-item">
+                <div className="signature-line border-b border-gray-400 mb-2 h-12"></div>
+                <p className="text-sm font-medium text-center">Reviewed by</p>
+                <p className="text-xs text-center text-gray-600">Date: ___________</p>
+              </div>
+
+              <div className="signature-item">
+                <div className="signature-line border-b border-gray-400 mb-2 h-12"></div>
+                <p className="text-sm font-medium text-center">Approved by</p>
+                <p className="text-xs text-center text-gray-600">Date: ___________</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

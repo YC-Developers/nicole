@@ -34,7 +34,7 @@ const Report = () => {
       const response = await axios.get('/api/reports/monthly', {
         params: formData
       });
-      
+
       setReportData(response.data);
       setReportGenerated(true);
     } catch (err) {
@@ -52,12 +52,12 @@ const Report = () => {
   return (
     <div>
       <h2 className="mb-4">Monthly Payroll Report</h2>
-      
+
       <Card className="form-container mb-4">
         <Card.Body>
           <Card.Title>Generate Report</Card.Title>
           {error && <Alert variant="danger">{error}</Alert>}
-          
+
           <Form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-6">
@@ -109,7 +109,7 @@ const Report = () => {
               Print Report
             </Button>
           </div>
-          
+
           <Table striped bordered hover responsive className="mt-3">
             <thead>
               <tr>
@@ -148,6 +148,29 @@ const Report = () => {
               </tfoot>
             )}
           </Table>
+
+          {/* Signature Section - Only visible when printing */}
+          <div className="signature-section print-only mt-5">
+            <div className="row">
+              <div className="col-md-4 text-center">
+                <div className="signature-line border-bottom mb-2" style={{height: '50px'}}></div>
+                <p className="small fw-bold">Prepared by</p>
+                <p className="small text-muted">Date: ___________</p>
+              </div>
+
+              <div className="col-md-4 text-center">
+                <div className="signature-line border-bottom mb-2" style={{height: '50px'}}></div>
+                <p className="small fw-bold">Reviewed by</p>
+                <p className="small text-muted">Date: ___________</p>
+              </div>
+
+              <div className="col-md-4 text-center">
+                <div className="signature-line border-bottom mb-2" style={{height: '50px'}}></div>
+                <p className="small fw-bold">Approved by</p>
+                <p className="small text-muted">Date: ___________</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
