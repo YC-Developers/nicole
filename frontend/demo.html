@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPMS - Employee Payroll Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#000000",
+            secondary: "#ffffff",
+            danger: "#ff0000",
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .required-field::after {
+      content: "*";
+      color: #ff0000;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Login Page -->
+  <div id="login-page" class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+      <div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Employee Payroll Management System
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600">
+          Sign in to access your account
+        </p>
+      </div>
+      
+      <form class="mt-8 space-y-6">
+        <div class="rounded-md shadow-sm -space-y-px">
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required
+                class="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                placeholder="Username"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="password" class="sr-only">Password</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                class="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                placeholder="Password"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            onclick="showDashboard()"
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+          >
+            Sign in
+          </button>
+        </div>
+        
+        <div class="text-center text-xs text-gray-500">
+          <p>Default admin credentials:</p>
+          <p>Username: admin | Password: admin123</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden">
+    <!-- Navbar -->
+    <nav class="bg-black">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <span class="text-white font-bold text-xl">EPMS</span>
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" onclick="showPage('employees')">Employees</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="showPage('departments')">Departments</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="showPage('salaries')">Salaries</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onclick="showPage('reports')">Reports</a>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-4 flex items-center md:ml-6">
+              <div class="flex items-center">
+                <span class="text-gray-300 mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                  admin
+                </span>
+                <button
+                  onclick="showLogin()"
+                  class="ml-3 px-3 py-1 rounded-md text-sm font-medium bg-red-600 text-white hover:bg-red-700"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V7.414l-5-5H3zm7 5a1 1 0 10-2 0v4.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 12.586V8z" clip-rule="evenodd" />
+                  </svg>
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-8">
+      <!-- Employees Page -->
+      <div id="employees-page" class="page-content">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-2xl font-bold">Employee Management</h1>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 class="text-xl font-semibold mb-4 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            Add New Employee
+          </h2>
+          
+          <form>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">Employee Number</label>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black" required>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1 required-field">First Name</label>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black" required>
+              </div>
+              
+              <!-- More form fields would go here -->
+            </div>
+            
+            <div class="mt-6">
+              <button type="button" class="px-4 py-2 bg-black text-white rounded font-medium hover:bg-gray-800">
+                Add Employee
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-4 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            Employee List
+          </h2>
+          
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee Number</th>
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telephone</th>
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hired Date</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">EMP001</td>
+                  <td class="px-6 py-4 whitespace-nowrap">John Doe</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Software Engineer</td>
+                  <td class="px-6 py-4 whitespace-nowrap">Male</td>
+                  <td class="px-6 py-4 whitespace-nowrap">123-456-7890</td>
+                  <td class="px-6 py-4 whitespace-nowrap">January 15, 2023</td>
+                </tr>
+                <!-- More rows would go here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other pages would go here (departments, salaries, reports) -->
+      <div id="departments-page" class="page-content hidden">
+        <h1 class="text-2xl font-bold mb-6">Department Management</h1>
+        <!-- Department content would go here -->
+      </div>
+      
+      <div id="salaries-page" class="page-content hidden">
+        <h1 class="text-2xl font-bold mb-6">Salary Management</h1>
+        <!-- Salary content would go here -->
+      </div>
+      
+      <div id="reports-page" class="page-content hidden">
+        <h1 class="text-2xl font-bold mb-6">Monthly Payroll Report</h1>
+        <!-- Report content would go here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showLogin() {
+      document.getElementById('login-page').classList.remove('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
+    }
+    
+    function showDashboard() {
+      document.getElementById('login-page').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      showPage('employees');
+    }
+    
+    function showPage(page) {
+      // Hide all pages
+      document.querySelectorAll('.page-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+      
+      // Show the selected page
+      document.getElementById(page + '-page').classList.remove('hidden');
+      
+      // Update active nav link
+      document.querySelectorAll('nav a').forEach(el => {
+        el.classList.remove('bg-gray-900', 'text-white');
+        el.classList.add('text-gray-300', 'hover:bg-gray-700', 'hover:text-white');
+      });
+      
+      const activeLink = document.querySelector(`nav a[onclick="showPage('${page}')"]`);
+      if (activeLink) {
+        activeLink.classList.remove('text-gray-300', 'hover:bg-gray-700', 'hover:text-white');
+        activeLink.classList.add('bg-gray-900', 'text-white');
+      }
+    }
+  </script>
+</body>
+</html>
